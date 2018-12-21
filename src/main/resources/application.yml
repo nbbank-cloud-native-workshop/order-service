@@ -1,29 +1,22 @@
 server:
   port: 9080
 spring:
-  redis:
-    host: redis
   datasource:
-    url: jdbc:mysql://localhost/order_service_db
+    url: jdbc:mysql://localhost/order_service_db?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-    password: abcd1234
-management:
-  endpoints:
-    web:
-      base-path: /orders/actuator
-dmall:
-  inventory:
-    url: http://localhost:6565
-  shipping:
-    url: http://localhost:6565
+    password: pass
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
 ---
 spring:
   profiles: prod
   datasource:
-    url: jdbc:mysql://dmall-order-db.cti1pnc10c3g.rds.cn-north-1.amazonaws.com.cn/order_service_db
-    username: admin
-dmall:
-  inventory:
-    url: http://inventory-service:9080
-  shipping:
-    url: http://shipping-service:9080
+    url: jdbc:mysql://mydb.cti1pnc10c3g.rds.cn-north-1.amazonaws.com.cn/order_service_db?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+  flyway:
+    enabled: true
